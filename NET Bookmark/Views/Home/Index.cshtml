@@ -1,0 +1,16 @@
+﻿@model WebBookmarkApp.Models.Note
+@{
+    ViewData["Title"] = "网页书签";
+}
+
+<div class="container">
+    @if (Model != null)
+    {
+        <h1>@Model.Title</h1>
+        <p>@Model.Content</p>
+    }
+    else
+    {
+        <p>未找到笔记数据。</p>
+    }
+</div>
