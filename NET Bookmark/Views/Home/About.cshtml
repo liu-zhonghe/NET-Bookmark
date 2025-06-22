@@ -1,9 +1,223 @@
 ﻿@model WebBookmarkApp.Models.Note
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "关于";
 }
 
-<div class="container">
-    <h1>About</h1>
-    <p>This is a simple web bookmark application.</p>
+<div class="about-header mb-5">
+    <div class="card glass-effect shadow-custom">
+        <div class="card-body text-center py-5">
+            <h1 class="text-gradient mb-4">
+                <i class="fas fa-info-circle me-3"></i>
+                关于网页书签
+            </h1>
+            <p class="lead text-muted">
+                一个简单而强大的网页书签管理工具，帮助您整理和保存重要的网页链接
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="about-content">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-custom mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-rocket me-2"></i>
+                        项目介绍
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        网页书签是一个基于 ASP.NET Core 开发的现代化书签管理应用，旨在为用户提供简洁、高效的书签和笔记管理体验。
+                    </p>
+                    
+                    <h4 class="mt-4 mb-3">主要功能</h4>
+                    <ul class="feature-list">
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <strong>书签管理：</strong>轻松保存、组织和分类您的网页书签
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <strong>笔记功能：</strong>创建和管理个人笔记，支持富文本编辑
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <strong>智能搜索：</strong>快速查找您需要的书签和笔记
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <strong>响应式设计：</strong>完美适配桌面、平板和移动设备
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <strong>现代化界面：</strong>采用最新的设计趋势，提供优秀的用户体验
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card shadow-custom">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-code me-2"></i>
+                        技术栈
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <a href="https://dotnet.microsoft.com/" target="_blank" class="tech-item-link">
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fab fa-microsoft fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="tech-info">
+                                        <h5>ASP.NET Core</h5>
+                                        <p class="text-muted">现代化的 Web 开发框架</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="https://getbootstrap.com/" target="_blank" class="tech-item-link">
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fab fa-bootstrap fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="tech-info">
+                                        <h5>Bootstrap 5</h5>
+                                        <p class="text-muted">响应式 UI 框架</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="tech-item-link">
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fab fa-js-square fa-2x text-warning"></i>
+                                    </div>
+                                    <div class="tech-info">
+                                        <h5>JavaScript</h5>
+                                        <p class="text-muted">交互和动态功能</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="tech-item-link">
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fab fa-css3-alt fa-2x text-info"></i>
+                                    </div>
+                                    <div class="tech-info">
+                                        <h5>CSS3</h5>
+                                        <p class="text-muted">现代化样式设计</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-custom mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        项目统计
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="stats-list">
+                        <div class="stat-item d-flex justify-content-between mb-3">
+                            <span class="text-muted">开发时间</span>
+                            <span class="fw-bold">2 周</span>
+                        </div>
+                        <div class="stat-item d-flex justify-content-between mb-3">
+                            <span class="text-muted">代码行数</span>
+                            <span class="fw-bold">1,500+</span>
+                        </div>
+                        <div class="stat-item d-flex justify-content-between mb-3">
+                            <span class="text-muted">功能模块</span>
+                            <span class="fw-bold">5+</span>
+                        </div>
+                        <div class="stat-item d-flex justify-content-between">
+                            <span class="text-muted">支持设备</span>
+                            <span class="fw-bold">全平台</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-custom mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-heart me-2"></i>
+                        开发理念
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="philosophy-item mb-3">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-user-check text-success"></i>
+                        </div>
+                        <div class="philosophy-content">
+                            <h6>用户至上</h6>
+                            <p class="text-muted small">以用户体验为核心，提供直观易用的界面</p>
+                        </div>
+                    </div>
+                    
+                    <div class="philosophy-item mb-3">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-shield-alt text-primary"></i>
+                        </div>
+                        <div class="philosophy-content">
+                            <h6>安全可靠</h6>
+                            <p class="text-muted small">采用最新的安全技术，保护用户数据</p>
+                        </div>
+                    </div>
+                    
+                    <div class="philosophy-item">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-sync-alt text-info"></i>
+                        </div>
+                        <div class="philosophy-content">
+                            <h6>持续改进</h6>
+                            <p class="text-muted small">不断优化功能，提升用户体验</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-custom">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-envelope me-2"></i>
+                        联系我们
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="contact-info">
+                        <div class="contact-item mb-3">
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            <span>3643945336@qq.com</span>
+                        </div>
+                        <div class="contact-item mb-3">
+                            <i class="fab fa-github text-dark me-2"></i>
+                            <span>GitHub 项目</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe text-success me-2"></i>
+                            <span>官方网站</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

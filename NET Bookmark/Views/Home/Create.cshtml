@@ -1,19 +1,270 @@
 @model WebBookmarkApp.Models.Note
 @{ ViewData["Title"] = "添加笔记"; }
 
-<div class="container mt-4">
-    <h2>添加新笔记</h2>
-    <form asp-action="Create" method="post">
-        <div class="mb-3">
-            <label asp-for="Title" class="form-label"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
+<div class="create-note-header mb-4">
+    <div class="card glass-effect shadow-custom">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="text-gradient mb-0">
+                        <i class="fas fa-plus-circle me-3"></i>
+                        创建新笔记
+                    </h1>
+                    <p class="text-muted mt-2 mb-0">记录您的想法、链接或重要信息</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="/Home/Notes" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        返回笔记列表
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label asp-for="Content" class="form-label"></label>
-            <textarea asp-for="Content" class="form-control" rows="5"></textarea>
-            <span asp-validation-for="Content" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">提交</button>
-    </form>
+    </div>
 </div>
+
+<div class="create-note-form">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-custom">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-edit me-2"></i>
+                        笔记信息
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" id="noteForm">
+                        <div class="mb-4">
+                            <label asp-for="Title" class="form-label">
+                                <i class="fas fa-heading me-2"></i>
+                                笔记标题
+                            </label>
+                            <input asp-for="Title" class="form-control form-control-lg" 
+                                   placeholder="输入笔记标题..." 
+                                   maxlength="100" />
+                            <div class="form-text">
+                                <span id="titleCount">0</span>/100 字符
+                            </div>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label asp-for="Content" class="form-label">
+                                <i class="fas fa-align-left me-2"></i>
+                                笔记内容
+                            </label>
+                            <textarea asp-for="Content" class="form-control" 
+                                      rows="8" 
+                                      placeholder="输入笔记内容..." 
+                                      maxlength="2000"></textarea>
+                            <div class="form-text">
+                                <span id="contentCount">0</span>/2000 字符
+                            </div>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-save me-2"></i>
+                                保存笔记
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-lg" onclick="clearForm()">
+                                <i class="fas fa-eraser me-2"></i>
+                                清空表单
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-custom mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        写作提示
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="writing-tips">
+                        <div class="tip-item mb-3">
+                            <div class="tip-icon">
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h6>保持简洁</h6>
+                                <p class="text-muted small">使用清晰、简洁的语言表达您的想法</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item mb-3">
+                            <div class="tip-icon">
+                                <i class="fas fa-tags text-primary"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h6>添加标签</h6>
+                                <p class="text-muted small">使用标签来组织和分类您的笔记</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="fas fa-link text-info"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h6>包含链接</h6>
+                                <p class="text-muted small">添加相关网页链接以便快速访问</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-custom">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i>
+                        统计信息
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="stats-info">
+                        <div class="stat-item d-flex justify-content-between mb-2">
+                            <span class="text-muted">标题长度:</span>
+                            <span id="titleLength" class="fw-bold">0</span>
+                        </div>
+                        <div class="stat-item d-flex justify-content-between mb-2">
+                            <span class="text-muted">内容长度:</span>
+                            <span id="contentLength" class="fw-bold">0</span>
+                        </div>
+                        <div class="stat-item d-flex justify-content-between mb-2">
+                            <span class="text-muted">单词数量:</span>
+                            <span id="wordCount" class="fw-bold">0</span>
+                        </div>
+                        <div class="stat-item d-flex justify-content-between">
+                            <span class="text-muted">预计阅读时间:</span>
+                            <span id="readTime" class="fw-bold">0 分钟</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 字符计数功能
+        const titleInput = document.getElementById('Title');
+        const contentTextarea = document.getElementById('Content');
+        const titleCount = document.getElementById('titleCount');
+        const contentCount = document.getElementById('contentCount');
+        
+        titleInput.addEventListener('input', function() {
+            const length = this.value.length;
+            titleCount.textContent = length;
+            updateStats();
+        });
+        
+        contentTextarea.addEventListener('input', function() {
+            const length = this.value.length;
+            contentCount.textContent = length;
+            updateStats();
+        });
+        
+        // 更新统计信息
+        function updateStats() {
+            const titleLength = titleInput.value.length;
+            const contentLength = contentTextarea.value.length;
+            const content = contentTextarea.value;
+            const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;
+            const readTime = Math.ceil(wordCount / 200); // 假设每分钟阅读200个单词
+            
+            document.getElementById('titleLength').textContent = titleLength;
+            document.getElementById('contentLength').textContent = contentLength;
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('readTime').textContent = readTime + ' 分钟';
+        }
+        
+        // 清空表单
+        function clearForm() {
+            if (confirm('确定要清空表单吗？所有输入的内容将丢失。')) {
+                titleInput.value = '';
+                contentTextarea.value = '';
+                updateStats();
+                titleInput.focus();
+            }
+        }
+        
+        // 表单验证
+        document.getElementById('noteForm').addEventListener('submit', function(e) {
+            const title = titleInput.value.trim();
+            const content = contentTextarea.value.trim();
+            
+            if (!title) {
+                e.preventDefault();
+                titleInput.classList.add('is-invalid');
+                titleInput.focus();
+                return false;
+            }
+            
+            if (!content) {
+                e.preventDefault();
+                contentTextarea.classList.add('is-invalid');
+                contentTextarea.focus();
+                return false;
+            }
+        });
+        
+        // 自动保存草稿功能
+        let autoSaveTimer;
+        
+        function autoSave() {
+            const title = titleInput.value;
+            const content = contentTextarea.value;
+            
+            if (title || content) {
+                localStorage.setItem('noteDraft', JSON.stringify({
+                    title: title,
+                    content: content,
+                    timestamp: new Date().toISOString()
+                }));
+            }
+        }
+        
+        titleInput.addEventListener('input', function() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(autoSave, 2000);
+        });
+        
+        contentTextarea.addEventListener('input', function() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(autoSave, 2000);
+        });
+        
+        // 加载草稿
+        window.addEventListener('load', function() {
+            const draft = localStorage.getItem('noteDraft');
+            if (draft) {
+                const draftData = JSON.parse(draft);
+                const draftAge = new Date() - new Date(draftData.timestamp);
+                const hoursOld = draftAge / (1000 * 60 * 60);
+                
+                if (hoursOld < 24) { // 24小时内的草稿
+                    if (confirm('发现未保存的草稿，是否要恢复？')) {
+                        titleInput.value = draftData.title || '';
+                        contentTextarea.value = draftData.content || '';
+                        updateStats();
+                    }
+                }
+            }
+        });
+        
+        // 表单提交成功后清除草稿
+        document.getElementById('noteForm').addEventListener('submit', function() {
+            localStorage.removeItem('noteDraft');
+        });
+    </script>
+}

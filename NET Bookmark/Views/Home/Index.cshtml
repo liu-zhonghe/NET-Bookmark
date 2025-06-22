@@ -3,14 +3,149 @@
     ViewData["Title"] = "网页书签";
 }
 
-<div class="container">
-    @if (Model != null)
-    {
-        <h1>@Model.Title</h1>
-        <p>@Model.Content</p>
-    }
-    else
-    {
-        <p>未找到笔记数据。</p>
-    }
+<div class="hero-section text-center mb-5">
+    <div class="card glass-effect shadow-custom">
+        <div class="card-body py-5">
+            <h1 class="text-gradient mb-4">
+                <i class="fas fa-bookmark me-3"></i>
+                欢迎使用网页书签
+            </h1>
+            <p class="lead text-muted mb-4">
+                一个简单而强大的网页书签管理工具，帮助您整理和保存重要的网页链接
+            </p>
+            <div class="hero-buttons">
+                <a href="/Home/Notes" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-sticky-note me-2"></i>
+                    查看笔记
+                </a>
+                <a href="/Home/Create" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-plus me-2"></i>
+                    添加笔记
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-custom">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-save fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="card-title">快速保存</h3>
+                    <p class="card-text">轻松保存和管理您的网页书签，支持分类和标签功能。</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-custom">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-search fa-3x text-success"></i>
+                    </div>
+                    <h3 class="card-title">智能搜索</h3>
+                    <p class="card-text">强大的搜索功能，帮助您快速找到需要的书签和笔记。</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-custom">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-mobile-alt fa-3x text-info"></i>
+                    </div>
+                    <h3 class="card-title">响应式设计</h3>
+                    <p class="card-text">完美适配各种设备，随时随地访问您的书签和笔记。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="latest-note-section mt-5">
+        <div class="card shadow-custom">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <i class="fas fa-clock me-2"></i>
+                    最新笔记
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="note-item">
+                    <h3 class="text-primary">@Model.Title</h3>
+                    <p class="text-muted">@Model.Content</p>
+                    <div class="note-meta">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            创建时间: @DateTime.Now.ToString("yyyy-MM-dd HH:mm")
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="empty-state mt-5">
+        <div class="card shadow-custom">
+            <div class="card-body text-center py-5">
+                <div class="empty-icon mb-4">
+                    <i class="fas fa-inbox fa-4x text-muted"></i>
+                </div>
+                <h3 class="text-muted mb-3">还没有笔记</h3>
+                <p class="text-muted mb-4">开始创建您的第一个笔记，记录重要的信息和想法。</p>
+                <a href="/Home/Create" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>
+                    创建第一个笔记
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="stats-section mt-5">
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon mb-2">
+                    <i class="fas fa-bookmark fa-2x text-primary"></i>
+                </div>
+                <h4 class="stat-number text-gradient">0</h4>
+                <p class="stat-label text-muted">总书签数</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon mb-2">
+                    <i class="fas fa-sticky-note fa-2x text-success"></i>
+                </div>
+                <h4 class="stat-number text-gradient">0</h4>
+                <p class="stat-label text-muted">总笔记数</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon mb-2">
+                    <i class="fas fa-folder fa-2x text-info"></i>
+                </div>
+                <h4 class="stat-number text-gradient">0</h4>
+                <p class="stat-label text-muted">分类数量</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <div class="stat-icon mb-2">
+                    <i class="fas fa-tags fa-2x text-warning"></i>
+                </div>
+                <h4 class="stat-number text-gradient">0</h4>
+                <p class="stat-label text-muted">标签数量</p>
+            </div>
+        </div>
+    </div>
 </div>
