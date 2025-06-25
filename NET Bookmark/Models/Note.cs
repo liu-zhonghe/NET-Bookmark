@@ -38,6 +38,24 @@ namespace WebBookmarkApp.Models
         [JsonPropertyName("updatedAt")]
         public DateTime UpdatedAt { get; set; }
 
+        /// <summary>
+        /// 是否为书签
+        /// </summary>
+        [JsonPropertyName("isBookmark")]
+        public bool IsBookmark { get; set; } = false;
+
+        /// <summary>
+        /// 标签列表
+        /// </summary>
+        [JsonPropertyName("tags")]
+        public List<string> Tags { get; set; } = new List<string>();
+
+        /// <summary>
+        /// 页数（仅书签用）
+        /// </summary>
+        [JsonPropertyName("pageNumber")]
+        public int? PageNumber { get; set; }
+
         public Note()
         {
             // 默认构造函数
@@ -45,15 +63,21 @@ namespace WebBookmarkApp.Models
             Content = string.Empty;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
+            IsBookmark = false;
+            Tags = new List<string>();
+            PageNumber = null;
         }
 
-        public Note(int id, string title, string content)
+        public Note(int id, string title, string content, bool isBookmark = false, List<string>? tags = null, int? pageNumber = null)
         {
             Id = id;
             Title = title;
             Content = content;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
+            IsBookmark = isBookmark;
+            Tags = tags ?? new List<string>();
+            PageNumber = pageNumber;
         }
     }
 }

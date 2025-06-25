@@ -38,18 +38,17 @@
                         <div class="mb-4">
                             <label asp-for="Title" class="form-label">
                                 <i class="fas fa-heading me-2"></i>
-                                笔记标题
+                                书名
                             </label>
                             <input asp-for="Title" class="form-control form-control-lg" 
-                                   placeholder="输入笔记标题..." 
+                                   placeholder="输入书名..." 
                                    maxlength="100" />
                             <div class="form-text">
                                 <span id="titleCount">0</span>/100 字符
                             </div>
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
-                        
-                        <div class="mb-4">
+                        <div class="mb-4" id="contentDiv">
                             <label asp-for="Content" class="form-label">
                                 <i class="fas fa-align-left me-2"></i>
                                 笔记内容
@@ -62,6 +61,32 @@
                                 <span id="contentCount">0</span>/2000 字符
                             </div>
                             <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4" id="pageNumberDiv" style="display:none;">
+                            <label class="form-label">
+                                <i class="fas fa-book-open me-2"></i>
+                                页数
+                            </label>
+                            <input asp-for="PageNumber" class="form-control" type="number" min="1" placeholder="输入页码..." />
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="fas fa-bookmark me-2"></i>
+                                是否为书签
+                            </label>
+                            <div class="form-check form-switch">
+                                <input asp-for="IsBookmark" class="form-check-input" type="checkbox" id="isBookmarkSwitch">
+                                <label class="form-check-label" for="isBookmarkSwitch">书签</label>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="fas fa-tags me-2"></i>
+                                标签（用逗号分隔）
+                            </label>
+                            <input type="text" name="TagsInput" class="form-control" placeholder="如：工作,重要,网址" />
+                            <div class="form-text">多个标签请用英文逗号分隔</div>
                         </div>
                         
                         <div class="form-actions">
@@ -266,5 +291,21 @@
         document.getElementById('noteForm').addEventListener('submit', function() {
             localStorage.removeItem('noteDraft');
         });
+        
+        // 书签切换显示内容/页数
+        const isBookmarkSwitch = document.getElementById('isBookmarkSwitch');
+        const contentDiv = document.getElementById('contentDiv');
+        const pageNumberDiv = document.getElementById('pageNumberDiv');
+        function toggleBookmarkFields() {
+            if (isBookmarkSwitch.checked) {
+                contentDiv.style.display = 'none';
+                pageNumberDiv.style.display = '';
+            } else {
+                contentDiv.style.display = '';
+                pageNumberDiv.style.display = 'none';
+            }
+        }
+        isBookmarkSwitch.addEventListener('change', toggleBookmarkFields);
+        window.addEventListener('DOMContentLoaded', toggleBookmarkFields);
     </script>
 }

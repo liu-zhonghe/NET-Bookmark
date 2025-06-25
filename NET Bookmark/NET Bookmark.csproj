@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>NET_Bookmark</RootNamespace>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
@@ -24,6 +25,9 @@
     <Content Remove="Views\Index.cshtml" />
     <Content Remove="Views\About.cshtml" />
     <Content Remove="Views\Notes.cshtml" />
+    <Content Include="..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

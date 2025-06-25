@@ -47,6 +47,21 @@
     </div>
 </div>
 
+<!-- 筛选区域 -->
+<div class="mb-3 d-flex flex-wrap align-items-center gap-2">
+    <a href="/Home/Notes" class="btn btn-outline-secondary btn-sm">全部</a>
+    <a href="/Home/Notes?type=bookmark" class="btn btn-outline-primary btn-sm">只看书签</a>
+    <a href="/Home/Notes?type=note" class="btn btn-outline-success btn-sm">只看笔记</a>
+    <span class="ms-2">按标签筛选：</span>
+    @{
+        var allTags = Model.SelectMany(n => n.Tags).Distinct().ToList();
+        foreach (var tag in allTags)
+        {
+            <a href="/Home/Notes?tag=@tag" class="btn btn-outline-info btn-sm">@tag</a>
+        }
+    }
+</div>
+
 @if (Model != null && Model.Any())
 {
     <div class="notes-grid">
@@ -70,16 +85,32 @@
                             </div>
                             
                             <div class="note-content flex-grow-1">
-                                <p class="card-text text-muted">
-                                    @(note.Content.Length > 100 ? note.Content.Substring(0, 100) + "..." : note.Content)
-                                </p>
+                                @if (note.IsBookmark)
+                                {
+                                    <p class="card-text text-muted">页数：@note.PageNumber</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text text-muted">
+                                        @(note.Content.Length > 100 ? note.Content.Substring(0, 100) + "..." : note.Content)
+                                    </p>
+                                }
                             </div>
                             
                             <div class="note-actions mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="note-tags">
-                                        <span class="badge bg-primary me-1">笔记</span>
-                                        <span class="badge bg-secondary">重要</span>
+                                        @if (note.IsBookmark)
+                                        {
+                                            <span class="badge bg-warning text-dark me-1"><i class="fas fa-bookmark"></i> 书签</span>
+                                        }
+                                        @if (note.Tags != null && note.Tags.Count > 0)
+                                        {
+                                            foreach (var tag in note.Tags)
+                                            {
+                                                <span class="badge bg-info text-dark me-1">@tag</span>
+                                            }
+                                        }
                                     </div>
                                     <div class="btn-group">
                                         <button class="btn btn-outline-primary btn-sm" data-tooltip="编辑笔记">
@@ -110,6 +141,15 @@
                 <p class="text-muted mb-0">
                     显示 <span id="visibleCount">@Model.Count</span> 个笔记，共 <span id="totalCount">@Model.Count</span> 个
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计信息 -->
+    <div class="row mt-4">
+        <div class="col">
+            <div class="alert alert-light">
+                总数：@Model.Count，书签：@Model.Count(n => n.IsBookmark)，笔记：@Model.Count(n => !n.IsBookmark)，标签数：@Model.SelectMany(n => n.Tags).Distinct().Count()
             </div>
         </div>
     </div>
